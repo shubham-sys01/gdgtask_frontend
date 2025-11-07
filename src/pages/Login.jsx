@@ -34,7 +34,7 @@ const Login = () => {
     <>
     <div className="flex w-full">
 
-    <div className="hidden md:block w-1/2 bg-red-500 ">
+    <div className="hidden md:block w-1/2 bg-blue-500 ">
     <img src="./public/3103.jpg" alt="Login" className="w-full h-full object-cover" />
       </div>
     <AuthCard
