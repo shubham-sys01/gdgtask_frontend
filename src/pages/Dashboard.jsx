@@ -11,7 +11,10 @@ const Dashboard = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const sortedTodos = useMemo(() => [...todos].sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1)), [todos]);
+  const sortedTodos = useMemo(
+    () => [...todos].sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1)),
+    [todos]
+  );
 
   const fetchTodos = useCallback(async () => {
     setLoading(true);
@@ -30,7 +33,7 @@ const Dashboard = () => {
     fetchTodos();
   }, [fetchTodos]);
 
-  const handleCreate = async event => {
+  const handleCreate = async (event) => {
     event.preventDefault();
     if (!title.trim()) {
       return;
@@ -39,7 +42,7 @@ const Dashboard = () => {
     setError("");
     try {
       const { data } = await api.post("/todos", { title: title.trim() });
-      setTodos(prev => [data, ...prev]);
+      setTodos((prev) => [data, ...prev]);
       setTitle("");
     } catch (err) {
       setError(err?.response?.data?.message || "Failed to create todo");
@@ -51,16 +54,16 @@ const Dashboard = () => {
   const toggleTodo = async (id, completed) => {
     try {
       const { data } = await api.put(`/todos/${id}`, { completed: !completed });
-      setTodos(prev => prev.map(todo => (todo._id === id ? data : todo)));
+      setTodos((prev) => prev.map((todo) => (todo._id === id ? data : todo)));
     } catch (err) {
       setError(err?.response?.data?.message || "Failed to update todo");
     }
   };
 
-  const deleteTodo = async id => {
+  const deleteTodo = async (id) => {
     try {
       await api.delete(`/todos/${id}`);
-      setTodos(prev => prev.filter(todo => todo._id !== id));
+      setTodos((prev) => prev.filter((todo) => todo._id !== id));
     } catch (err) {
       setError(err?.response?.data?.message || "Failed to delete todo");
     }
@@ -68,15 +71,21 @@ const Dashboard = () => {
 
   return (
     <div className="max-h-screen  text-white absolute inset-0">
-    <div class="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]"></div>
-      <div className="mx-auto flex min-h-screen max-w-5xl flex-col gap-8 px-6 py-14">
+      
+      <div class="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]"></div>
+      <div className="mx-auto flex min-h-screen max-w-5xl flex-col gap-8 px-6 py-5">
         <header className="flex items-center justify-between">
           <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-neutral-500">Dashboard</p>
+            <div className="text-3xl font-extrabold tracking-wider py-2">Todo_Flow</div>
+            <p className="text-sm uppercase tracking-[0.3em] text-neutral-500">
+              Dashboard
+            </p>
             <h1 className="mt-3 text-3xl font-semibold text-white">
               Hello {user?.name?.split(" ")[0] || "there"}
             </h1>
-            <p className="mt-1 text-sm text-neutral-500">Stay on top of your tasks and celebrate your progress</p>
+            <p className="mt-1 text-sm text-neutral-500">
+              Stay on top of your tasks and celebrate your progress
+            </p>
           </div>
           <button
             onClick={logout}
@@ -87,12 +96,15 @@ const Dashboard = () => {
         </header>
 
         <section className="rounded-3xl border border-white/10 bg-neutral-950 p-8 transition duration-500">
-          <form onSubmit={handleCreate} className="flex flex-col gap-4 md:flex-row">
+          <form
+            onSubmit={handleCreate}
+            className="flex flex-col gap-4 md:flex-row"
+          >
             <div className="flex-1">
               <input
                 type="text"
                 value={title}
-                onChange={event => setTitle(event.target.value)}
+                onChange={(event) => setTitle(event.target.value)}
                 placeholder="What would you like to accomplish?"
                 className="w-full rounded-2xl border border-white/10 bg-black px-5 py-4 text-white placeholder:text-neutral-500 focus:border-white focus:outline-none"
               />
@@ -107,7 +119,9 @@ const Dashboard = () => {
             </button>
           </form>
           {error && (
-            <p className="mt-4 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white">{error}</p>
+            <p className="mt-4 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white">
+              {error}
+            </p>
           )}
         </section>
 
@@ -118,7 +132,7 @@ const Dashboard = () => {
             </div>
           ) : (
             <div className="grid gap-4">
-              {sortedTodos.map(todo => (
+              {sortedTodos.map((todo) => (
                 <div
                   key={todo._id}
                   className="bg-neutral-950/10 flex items-center justify-between rounded-3xl border border-white px-6 py-5 hover:bg-gray-900"
@@ -126,11 +140,18 @@ const Dashboard = () => {
                   <div className="flex items-center gap-4">
                     <button
                       onClick={() => toggleTodo(todo._id, todo.completed)}
-                      className={`relative flex h-5 w-5  rounded-full border  ${todo.completed ? "bg-green-500" : "bg-neutral-600"} `}
-                    >
-                    </button>
+                      className={`relative flex h-5 w-5  rounded-full border  ${
+                        todo.completed ? "bg-green-500" : "bg-neutral-600"
+                      } `}
+                    ></button>
                     <div>
-                      <p className={`text-lg font-semibold transition-colors duration-300 ${todo.completed ? "text-neutral-500 line-through" : "text-white"}`}>
+                      <p
+                        className={`text-lg font-semibold transition-colors duration-300 ${
+                          todo.completed
+                            ? "text-neutral-500 line-through"
+                            : "text-white"
+                        }`}
+                      >
                         {todo.title}
                       </p>
                       <p className="text-xs uppercase  text-neutral-500">
@@ -160,4 +181,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
