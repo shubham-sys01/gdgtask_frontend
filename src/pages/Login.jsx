@@ -32,6 +32,7 @@ const Login = () => {
 
   return (
     <>
+    
     <div className="flex w-full">
 
     <div className="hidden md:block w-1/2 bg-blue-500 ">

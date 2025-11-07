@@ -18,22 +18,7 @@ A modern React application built with Vite for managing todos with authenticatio
 - Node.js (v14 or higher)
 - npm or yarn
 
-## Installation
-
-1. Navigate to the frontend directory:
-```bash
-cd frontend
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. (Optional) Create a `.env` file if you need to configure the API URL:
-```env
-VITE_API_URL=http://localhost:5000
-```
+`
 
 
 
@@ -130,6 +115,8 @@ Modern browsers that support:
 - ES6+ JavaScript
 - CSS Grid and Flexbox
 - LocalStorage API
+
+
 
 
 

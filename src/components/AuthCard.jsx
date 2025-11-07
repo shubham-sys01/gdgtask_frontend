@@ -1,7 +1,9 @@
 const AuthCard = ({ title, subtitle, footer, children }) => {
   return (
     <div className="flex min-h-screen md:w-1/2 w-full justify-center items-center  p-6">
-      
+      <div>
+      TodoFlow
+      </div>
       <div className="w-full max-w-md rounded-3xl border border-white/10 bg-neutral-950 p-10 ">
         <div className="mb-8 text-center">
             <h1 className="text-3xl font-semibold text-white tracking-tight">{title}</h1>
