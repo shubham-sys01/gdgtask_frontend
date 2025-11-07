@@ -125,7 +125,7 @@ const Dashboard = () => {
           )}
         </section>
 
-        <section className="flex-1 max-h-[40vh] overflow-y-auto scrollbar-none py-4 px-2">
+        <section className="flex-1 max-h-[50vh] overflow-y-auto scrollbar-none py-4 px-2">
           {loading ? (
             <div className="flex h-full items-center justify-center">
               <div className="h-20 w-20 rounded-full border-4 border-white/10 border-t-white animate-spin" />
