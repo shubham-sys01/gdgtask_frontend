@@ -55,7 +55,7 @@ const Register = () => {
             value={form.name}
             onChange={handleChange}
             className="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-white transition focus:border-white focus:outline-none"
-            placeholder="Jane Doe"
+            placeholder="Your name"
             required
           />
         </div>
