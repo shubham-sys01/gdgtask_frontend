@@ -62,12 +62,31 @@ const Dashboard = () => {
 
   const deleteTodo = async (id) => {
     try {
-      await api.delete(`/todos/${id}`);
-      setTodos((prev) => prev.filter((todo) => todo._id !== id));
+      const con = confirm("do you want to delete this todo ?")
+      if(con){
+        await api.delete(`/todos/${id}`);
+        setTodos((prev) => prev.filter((todo) => todo._id !== id));
+      }
+      else{
+        return ;
+      }
+      
     } catch (err) {
       setError(err?.response?.data?.message || "Failed to delete todo");
     }
   };
+  const updateTodo = async(title,id)=>{
+    
+    const con = confirm("do you want to update this todo ?")
+      if(con){
+        await api.delete(`/todos/${id}`);
+        setTodos((prev) => prev.filter((todo) => todo._id !== id));
+        setTitle(title);
+      }
+      else{
+        return ;
+      }
+  }
 
   return (
     <div className="max-h-screen  text-white absolute inset-0">
@@ -135,7 +154,7 @@ const Dashboard = () => {
               {sortedTodos.map((todo) => (
                 <div
                   key={todo._id}
-                  className="bg-neutral-950/10 flex items-center justify-between rounded-3xl border border-white px-6 py-5 hover:bg-gray-900"
+                  className="bg-neutral-950/10 flex items-center  max-w-full justify-between  rounded-3xl border border-white px-6 py-5 hover:bg-gray-900"
                 >
                   <div className="flex items-center gap-4">
                     <button
@@ -144,9 +163,9 @@ const Dashboard = () => {
                         todo.completed ? "bg-green-500" : "bg-neutral-600"
                       } `}
                     ></button>
-                    <div>
+                    <div className="max-w-[400px] overflow-hidden ">
                       <p
-                        className={`text-lg font-semibold transition-colors duration-300 ${
+                        className={`text-lg font-semibold ${
                           todo.completed
                             ? "text-neutral-500 line-through"
                             : "text-white"
@@ -159,12 +178,19 @@ const Dashboard = () => {
                       </p>
                     </div>
                   </div>
-                  <button
+                  <div className="flex gap-2">
+                    <button
                     onClick={() => deleteTodo(todo._id)}
-                    className="rounded-2xl border border-white/20 bg-transparent px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-black"
-                  >
-                    Delete
-                  </button>
+                    className="rounded-2xl border border-white/20 bg-transparent px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-black" >
+                      Delete
+                    </button>
+                    <button
+                      onClick={() => updateTodo(todo.title ,todo._id)}
+                      className="rounded-2xl border border-white/20 bg-transparent px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-black"
+                    >
+                      Update
+                    </button>
+                  </div>
                 </div>
               ))}
               {!sortedTodos.length && (
